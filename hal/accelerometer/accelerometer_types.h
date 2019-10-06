@@ -1,0 +1,15 @@
+/*
+ * accelerometer_types.h
+ *
+ *  Created on: Oct 7, 2019
+ *      Author: Muhammad.Elzeiny
+ */
+
+#ifndef TM4C123_FIRMWARE_HAL_ACCELEROMETER_ACCELEROMETER_TYPES_H_
+#define TM4C123_FIRMWARE_HAL_ACCELEROMETER_ACCELEROMETER_TYPES_H_
+
+
+
+
+
+#endif /* TM4C123_FIRMWARE_HAL_ACCELEROMETER_ACCELEROMETER_TYPES_H_ */
