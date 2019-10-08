@@ -56,8 +56,7 @@ void Spi_init(void)
 
         /*TODO: (2) Select whether the SSI is a master or slave  */
 
-        /* configure loop back test */
-        SSICR1(Spi_BaseAddrArr[Channel]).B.LBM = Spi_CfgArr[i].CFG_LoopBack;
+        /*TODO: configure loop back test */
 
         /*TODO: configure Tx Interrupt Mode  */
 
@@ -89,11 +88,11 @@ void Spi_init(void)
 }
 /*=================================================================================
  * NAME:        Spi_enInterrupt
- * DESCRIBTION: Enable all configured interrupts in corresponding channel
+ * DESCRIBTION: Enable all configured interrupts for given channel
  * =================================================================================*/
 void Spi_enInterrupt(Spi_ChannelType Channel)
 {
-    /* TODO: Enable all configured interrupts in corresponding channel */
+    /* TODO: Enable all configured interrupts for given channel */
 
 
 }
@@ -134,7 +133,7 @@ Std_ReturnType Spi_WriteIB( Spi_ChannelType Channel, const uint16* DataBufferPtr
 /* =================================================================================
  * NAME:          Spi_ReadIB
  * DESCRIBTION:   The function Spi_ReadIB provides the service
- * for reading synchronously one or more data from an IB
+ * for reading synchronously one or more data from an IB(Rx_Buffer)
  * =================================================================================*/
 Std_ReturnType Spi_ReadIB( Spi_ChannelType Channel, uint16* DataBufferPtr, uint8* DataBufferSizePtr )
 {

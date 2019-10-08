@@ -23,14 +23,14 @@
 #define SYSCTR_RCC_UART5                          DISABLE
 #define SYSCTR_RCC_UART6                          DISABLE
 #define SYSCTR_RCC_UART7                          DISABLE
-
-#define SYSCTR_RCC_SSI0                           ENABLE
+/*TODO: enable SPI active channel System Clock generation */
+#define SYSCTR_RCC_SSI0                           DISABLE
 #define SYSCTR_RCC_SSI1                           DISABLE
 #define SYSCTR_RCC_SSI2                           DISABLE
-#define SYSCTR_RCC_SSI3                           ENABLE
+#define SYSCTR_RCC_SSI3                           DISABLE
                           
-#define SYSCTR_RCC_I2C0                           ENABLE
-#define SYSCTR_RCC_I2C1                           ENABLE
+#define SYSCTR_RCC_I2C0                           DISABLE
+#define SYSCTR_RCC_I2C1                           DISABLE
 #define SYSCTR_RCC_I2C2                           DISABLE
 #define SYSCTR_RCC_I2C3                           DISABLE
 
