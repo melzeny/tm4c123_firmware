@@ -27,10 +27,7 @@ void lab_00_spi(void)
     while(1)
     {
 
-
     }
-
-
 }
 
 
