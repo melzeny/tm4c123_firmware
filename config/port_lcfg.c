@@ -55,7 +55,7 @@ Port_CfgType PortCfgArr[PORT_NUM_OF_ACTIVATED_CH] = {
 {     Port_Channel_E3,          port_Dir_Input,          PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_OpenDrain,         Port_CurrDrive_2mA,         Port_Unlocked     },
 {     Port_Channel_E4,          port_Dir_Input,          PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_OpenDrain,         Port_CurrDrive_2mA,         Port_Unlocked     },
 {     Port_Channel_E5,          port_Dir_Input,          PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_OpenDrain,         Port_CurrDrive_2mA,         Port_Unlocked     },
-
+/*TODO: Configure PORTF Channels*/
 {     Port_Channel_F0,          port_Dir_Output,         PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_NA,               Port_CurrDrive_2mA,          Port_Unlocked    },
 {     Port_Channel_F1,          port_Dir_Output,         PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_NA,               Port_CurrDrive_2mA,          Port_Unlocked    },
 {     Port_Channel_F2,          port_Dir_Output,         PORT_MODE_PIN_X_DIO,          Port_IntDisable,        Port_InternalAttach_NA,               Port_CurrDrive_2mA,          Port_Unlocked    },

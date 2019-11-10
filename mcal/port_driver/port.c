@@ -39,7 +39,7 @@ void PORT_init(void)
             PORT_Addr = &PORTC_REG;
             break;
         case Port_Id_D:
-            PORT_Addr = &PORTD_REG;
+            /*TODO: Assign PORTD address to PORT_Addr variable */
             break;
         case Port_Id_E:
             PORT_Addr = &PORTE_REG;
@@ -49,87 +49,40 @@ void PORT_init(void)
             break;
         }
 
-        /* set channel direction */
-        if(PortCfgArr[i].Dir == port_Dir_Output)
-        {
-            SET_BIT(PORT_Addr->GPIODIR, ChId);
-        }
-        else
-        {
-            CLR_BIT(PORT_Addr->GPIODIR, ChId);
-        }
+        /*TODO: set channel direction */
 
-        /* set channel mode */
-        if(PortCfgArr[i].Mode == PORT_MODE_PIN_X_DIO)
-        {
-            CLR_BIT(PORT_Addr->GPIOAFSEL, ChId);
-        }
-        else
-        {
-            SET_BIT(PORT_Addr->GPIOAFSEL, ChId);
 
-            PORT_Addr->GPIOPCTL |= ( PortCfgArr[i].Mode << (ChId*4) );
-        }
+        /*TODO: set channel mode */
 
-        /* set Interrupt configuration */
+
+        /*TODO: set Interrupt configuration */
         if(PortCfgArr[i].Interrupt == Port_IntDisable)
         {
             CLR_BIT(PORT_Addr->GPIOIM, ChId);
         }
         else
         {
-            SET_BIT(PORTA_REG.GPIOIM, ChId);
-            if(PortCfgArr[i].Interrupt == Port_IntRisingEdge)
-            {
-                SET_BIT(PORT_Addr->GPIOIEV,ChId);
-            }
-            else if(PortCfgArr[i].Interrupt == Port_IntFallingEdge)
-            {
-                CLR_BIT(PORT_Addr->GPIOIEV,ChId);
-            }
-            else if(PortCfgArr[i].Interrupt == Port_IntBothEdges)
-            {
-                SET_BIT(PORT_Addr->GPIOIBE,ChId);
-            }
+
+
         }
 
-        /* set Internal Attachment configuration */
-        if(PortCfgArr[i].AttachedRes == Port_InternalAttach_PullUpRes)
-        {
-            SET_BIT(PORT_Addr->GPIOPUR,ChId);
-        }else if(PortCfgArr[i].AttachedRes == Port_InternalAttach_PullDownRes)
-        {
-            SET_BIT(PORT_Addr->GPIOPDR,ChId);
-        }else if(PortCfgArr[i].AttachedRes == Port_InternalAttach_OpenDrain)
-        {
-            SET_BIT(PORT_Addr->GPIOODR,ChId);
-        }
+        /*TODO: set Internal Attachment configuration */
 
-        /*set current strength configuration */
-        if(PortCfgArr[i].CurrentDrive == Port_CurrDrive_2mA)
-        {
-            SET_BIT(PORT_Addr->GPIODR2R,ChId);
-        }else if(PortCfgArr[i].CurrentDrive == Port_CurrDrive_4mA)
-        {
-            SET_BIT(PORT_Addr->GPIODR4R,ChId);
-        }else if(PortCfgArr[i].CurrentDrive == Port_CurrDrive_8mA)
-        {
-            SET_BIT(PORT_Addr->GPIODR8R,ChId);
-        }
 
+        /*TODO: set current strength configuration */
+
+
+        /*Check if analog functionality is required*/
         if(PortCfgArr[i].Mode != Port_Mode_AIN )
         {
-            /* enable digital */
-            SET_BIT(PORT_Addr->GPIODEN,ChId);
-            /*disable ADC */
-            CLR_BIT(PORT_Addr->GPIOADCCTL,ChId);
+            /*TODO: enable digital and disable ADC  */
+
+
         }
         else
         {
-            /* disable digital */
-            CLR_BIT(PORT_Addr->GPIODEN,ChId);
-            /* enable ADC */
-            SET_BIT(PORT_Addr->GPIOADCCTL,ChId);
+            /*TODO: disable digital and enable ADC */
+
         }
     }
 }

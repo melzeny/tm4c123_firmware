@@ -9,7 +9,7 @@
 #include "../mcal/port_driver/port.h"
 #include "../mcal/dio/dio.h"
 
-void lab_01_dio(void)
+void lab_00_dio(void)
 {
     SysCtr_init();
     PORT_init();
