@@ -8,6 +8,7 @@
 #ifndef E15_ARM_REPO_CONFIG_SYSCTR_CFG_H_
 #define E15_ARM_REPO_CONFIG_SYSCTR_CFG_H_
 
+/*TODO : enable GPIO PORTS */
 #define SYSCTR_RCC_GPIO_PORTA                     DISABLE
 #define SYSCTR_RCC_GPIO_PORTB                     DISABLE
 #define SYSCTR_RCC_GPIO_PORTC                     DISABLE

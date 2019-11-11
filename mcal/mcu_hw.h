@@ -118,6 +118,7 @@ typedef union
 typedef struct
 {
     uint32 GPIODATA    ;
+    /*TODO: add reserved space */
     uint32 GPIODIR     ;
     uint32 GPIOIS      ;
     uint32 GPIOIBE     ;
