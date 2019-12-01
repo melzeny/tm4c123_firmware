@@ -1,116 +1,70 @@
-/*
- * spi_types.h
- *
- *  Created on: Aug 19, 2019
- *      Author: Muhammad.Elzeiny
- */
+#ifndef SPI_TYPES_H
+#define SPI_TYPES_H
 
-#ifndef E15_ARM_REPO_MCAL_Spi_Spi_TYPES_H_
-#define E15_ARM_REPO_MCAL_Spi_Spi_TYPES_H_
+#include "../../utils/Std_Types.h"
 
 typedef enum
-{
-    Spi_Channel0,
-    Spi_Channel1,
-    Spi_Channel2,
-    Spi_Channel3
-}Spi_ChannelType;
-typedef enum
-{
-    SPI_UNINIT,
-    SPI_IDLE,
-    SPI_BUSY
-}Spi_StatusType;
+ {
+	SPI_Ch_0,
+	SPI_Ch_1,
+	SPI_Ch_2,
+	SPI_Ch_3, 
+	SPI_MaxNumOfChannels	 
+ }SPI_ChannelType;
+ typedef enum
+ {
+	SPI_Status_Idle,
+	SPI_Status_Busy 
+ }SPI_StatusType;
+ 
+ 
+ /* PRIVATE TYPES */
+ #ifdef SPI_PRIVATE_CODE
+#include "../../config/spi_cfg.h"
+ typedef struct
+ {
+	uint8 TxIbuffer[SPI_MAX_TX_BUFFER_SIZE];
+	uint8 RxIbuffer[SPI_MAX_RX_BUFFER_SIZE];
+	uint8 TxIndex;
+	uint8 RxIndex;
+	SPI_StatusType Status;
+	uint8 TxMsgSize;
+ }SPI_ChannelParamStructType;
+ 
+typedef uint8 SPI_ModeType;
+#define SPI_Mode_Master		0
+#define SPI_Mode_Slave		1
 
-/*========================================================*
- *      PRIVATE TYPES                                     *
- * =======================================================*/
-
-#ifdef SPI_PRIVATE_CONFIG
-
-
-
-typedef enum
-{
-    Spi_FrameFormate_FreeScale,
-    Spi_FrameFormate_Ti,
-    Spi_FrameFormate_Microwire
-}Spi_FrameFormateType;
-
-
-typedef enum
-{
-
-    Spi_NumberOfData_04_Bits = 0X3,
-    Spi_NumberOfData_05_Bits,
-    Spi_NumberOfData_06_Bits,
-    Spi_NumberOfData_07_Bits,
-    Spi_NumberOfData_08_Bits,
-    Spi_NumberOfData_09_Bits,
-    Spi_NumberOfData_10_Bits,
-    Spi_NumberOfData_11_Bits,
-    Spi_NumberOfData_12_Bits,
-    Spi_NumberOfData_13_Bits,
-    Spi_NumberOfData_14_Bits,
-    Spi_NumberOfData_15_Bits,
-    Spi_NumberOfData_16_Bits
-
-}Spi_NumberOfDataType;
-
-typedef enum
-{
-    Spi_OprMode_Master,
-    Spi_OprMode_Slave
-
-}Spi_OprModeType;
+typedef uint32	SPI_BaudRateHzType;
 
 
-typedef enum
-{
-    Spi_ClockSource_SysClock,
-    Spi_ClockSource_PIOSC = 0x5,
+typedef uint8 SPI_CLockPolarityType;
+#define SPI_CLockPolarity_IdleLow				0
+#define SPI_CLockPolarity_IdleHigh				1
 
-}Spi_ClockSourceType;
-typedef enum
-{
-    Spi_DataCaptureClockEdge_First,
-    Spi_DataCaptureClockEdge_Second,
-}Spi_DataCaptureClockEdgeType;
-typedef enum
-{
-    FIFOBasedInterrupt, /*interrupt indicates that the transmit FIFO is half full or less.*/
-    EndOfTxInterrupt, /*The End of Transmit interrupt */
-}Spi_TxIntType;
-typedef struct
-{
-    Spi_ChannelType                 Spi_Channel;
-    uint32                          CFG_BitRate;
-    Spi_DataCaptureClockEdgeType    CFG_DataCaptureClockEdge;
-    STD_levelType                   CFG_IdleCLockState;
-    Spi_FrameFormateType            CFG_FrameFormat;
-    Spi_NumberOfDataType            CFG_DataSize;
-    Spi_OprModeType                 CFG_OprMode;
-    STD_EnType                      CFG_LoopBack;
-    STD_EnType                      CFG_DMA_Tx;
-    STD_EnType                      CFG_DMA_Rx;
-    Spi_ClockSourceType             CFG_ClockSource;
-    Spi_TxIntType                   CFG_TxIntMode;
-    STD_EnType                      CFG_Interrupt_RxOverRun;
-    STD_EnType                      CFG_Interrupt_RxTimeout;
-    STD_EnType                      CFG_Interrupt_Rxc;
-    STD_EnType                      CFG_Interrupt_Txc;
-}Spi_ConfigType;
+typedef uint8 SPI_ClockphaseType;
+#define SPI_CLockPhase_SampleFirstEdge			0
+#define SPI_CLockPhase_SetupFirstEdge			1
+
+typedef uint8 SPI_FrameFormatType;
+#define SPI_FrameFormate_Ti						0
+#define SPI_FrameFormate_FreeScale				1
+#define SPI_FrameFormate_Microwire				2
+
+typedef uint8 SPI_DataSizeType;
 
 typedef struct
 {
-    uint32 TxMsgSize;
-    uint16 TxBuffer[Spi_TX_BUFFER_SIZE];
-    uint32 TxBufferIndex;
-    uint16 RxBuffer[Spi_RX_BUFFER_SIZE];
-    uint32 RxBufferIndex;
-    Spi_StatusType Status;
-}Spi_ChannelParamType;
+	SPI_ChannelType 		SPI_ChannelId       ;
+	SPI_ModeType 			SPI_Mode            ;
+	SPI_BaudRateHzType 		SPI_BaudRate_Hz     ;
+	SPI_CLockPolarityType	SPI_CLockPolarity   ;
+	SPI_ClockphaseType		SPI_Clockphase      ;
+	SPI_FrameFormatType 	SPI_FrameFormat     ;
+	SPI_DataSizeType		SPI_DataSize        ;
+}SPI_CFGType;
 
-#endif /* ifdef Spi_DRIVER */
+#endif
 
-#endif /* E15_ARM_REPO_MCAL_Spi_Spi_TYPES_H_ */
+#endif
+

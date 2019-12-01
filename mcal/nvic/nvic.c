@@ -6,7 +6,7 @@
  */
 
 
-#include "../../utils/STD_Types.h"
+#include <tm4c123_firmware/utils/Std_Types.h>
 #include "../../utils/Bit_Math.h"
 #include "../../config/nvic_cfg.h"
 #include "../mcu_hw.h"

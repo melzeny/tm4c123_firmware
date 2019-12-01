@@ -1,30 +1,22 @@
-/*
- * spi_lcfg.c
- *
- *  Created on: Aug 19, 2019
- *      Author: Muhammad.Elzeiny
- */
+#define SPI_PRIVATE_CODE
 
-#define SPI_PRIVATE_CONFIG
-
-
-#include "../utils/STD_types.h"
 #include "spi_cfg.h"
-#include "../mcal/spi/spi_types.h"
+#include "../mcal/spi/spi_Types.h"
 
+/*
+*  NOTE: For master mode, the system clock or the PIOSC must be at least
+*  two times faster than the SSInClk, with the restriction that SSInClk cannot be faster than
+*  25 MHz. For slave mode, the system clock or the PIOSC must be at least 12 times faster
+*  than the SSInClk, with the restriction that SSInClk cannot be faster than 6.67 MHz.
+*/
+SPI_CFGType SPI_CfgArr[SPI_NUMER_OF_ACTIVATED_CHANNELS]=
+{
+/***************************************************************************************************************************************************************************/
+/*ChannelID*********MODE*****************BaudRate*******ClockPolarity********************Clockphase************************FrameFormate*************************DataSize****/
+/***************************************************************************************************************************************************************************/	
+{SPI_Ch_0,          SPI_Mode_Master,     9600,          SPI_CLockPolarity_IdleLow,       SPI_CLockPhase_SampleFirstEdge,   SPI_FrameFormate_FreeScale,          16          },
+{SPI_Ch_3,          SPI_Mode_Master,     5000000,       SPI_CLockPolarity_IdleLow,       SPI_CLockPhase_SampleFirstEdge,   SPI_FrameFormate_FreeScale,          16          },
 
-const Spi_ConfigType Spi_CfgArr[Spi_NUM_OF_ACTIVATED_UNITS]    = {
-/*======================================================================================================================================================================================================================================================================================================================================================================================================================================================================*
- *     Spi_ModNUm                BitRate             DataCaptureClockEdge                       IdleCLockState             FrameFormat                           DataSize                          OprMode                      LoopBack             DMA_Tx             DMA_Rx             ClockSource                          TxIntMode                      Interrupt_RxOverRun             Interrupt_RxTimeout             Interrupt_Rxc             Interrupt_Txc  *
- *======================================================================================================================================================================================================================================================================================================================================================================================================================================================================*/
-    {  Spi_Channel0,             500000,             Spi_DataCaptureClockEdge_First,            STD_high,                  Spi_FrameFormate_FreeScale,           Spi_NumberOfData_16_Bits,         Spi_OprMode_Master,          DISABLE,             DISABLE,           DISABLE,           Spi_ClockSource_SysClock,            FIFOBasedInterrupt,            DISABLE,                         DISABLE,                       DISABLE ,                 ENABLE        },
-    {  Spi_Channel1,             500000,             Spi_DataCaptureClockEdge_First,            STD_high,                  Spi_FrameFormate_FreeScale,           Spi_NumberOfData_16_Bits,         Spi_OprMode_Master,          ENABLE,              DISABLE,           DISABLE,           Spi_ClockSource_SysClock,            FIFOBasedInterrupt,            DISABLE,                         DISABLE,                       DISABLE,                  DISABLE       }
-    /* TODO: Configure Channel_2 and Channel_3 */
 };
-
-
-
-
-
 
 

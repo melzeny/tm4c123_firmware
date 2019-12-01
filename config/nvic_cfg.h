@@ -8,7 +8,7 @@
 #ifndef E15_ARM_REPO_CONFIG_NVIC_CFG_H_
 #define E15_ARM_REPO_CONFIG_NVIC_CFG_H_
 
-#include "../utils/STD_types.h"
+#include "../utils/Std_Types.h"
 
 
 #define GPIO_PORTA_NVIC     DISABLE ;

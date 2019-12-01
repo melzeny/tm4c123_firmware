@@ -7,7 +7,7 @@
  */
 #define MAX_NUM_OF_CH_IN_PORT       8
 
-#include "../../utils/STD_Types.h"
+#include <tm4c123_firmware/utils/Std_Types.h>
 #include "../../utils/Bit_Math.h"
 #include "../../config/port_cfg.h"
 #include "../mcu_hw.h"

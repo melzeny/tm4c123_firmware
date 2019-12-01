@@ -33,10 +33,10 @@
 #define PORT_MODE_PIN_D2_SSI3Rx             1
 #define PORT_MODE_PIN_D3_SSI3Tx             1
 
-#define PORT_MODE_PIN_F0_SSI1Clk            2
-#define PORT_MODE_PIN_F1_SSI1Fss            2
-#define PORT_MODE_PIN_F2_SSI1Rx             2
-#define PORT_MODE_PIN_F3_SSI1Tx             2
+#define PORT_MODE_PIN_F0_SSI1Rx             2
+#define PORT_MODE_PIN_F1_SSI1Tx             2
+#define PORT_MODE_PIN_F2_SSI1Clk            2
+#define PORT_MODE_PIN_F3_SSI1Fss            2
 
 #define PORT_MODE_PIN_B2_I2C0SCL            3
 #define PORT_MODE_PIN_B3_I2C0SDA            3
@@ -50,7 +50,7 @@
 #define PORT_MODE_PIN_D0_I2C3SCL            3
 #define PORT_MODE_PIN_D1_I2C3SDA            3
 
-#include "../../utils/STD_Types.h"
+#include "../../utils/Std_Types.h"
 typedef enum
 {
     Port_Channel_A0,

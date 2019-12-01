@@ -1,243 +1,116 @@
-/*
- * spi.c
- *
- *  Created on: Aug 19, 2019
- *      Author: Muhammad.Elzeiny
- */
-/*================================================*
+/*====================================
  * DEFINES
- * ==============================================*/
-#define SPI_PRIVATE_CONFIG
-#define Spi_NUMBER_OF_HW_UINTS                    4
-/*================================================*
- * INCLUDES
- * ==============================================*/
-#include "../../utils/Bit_Math.h"
-#include "../../utils/STD_Types.h"
-#include "../mcu_hw.h"
+ *=================================== */
+#define SPI_PRIVATE_CODE
+#define BASE_ADDRESS_SSI0       0x40008000
+#define BASE_ADDRESS_SSI1       0x40009000
+#define BASE_ADDRESS_SSI2       0x4000A000
+#define BASE_ADDRESS_SSI3       0x4000B000
 
+/*====================================
+ * DEFINES
+ *=================================== */
+#include "../mcu_hw.h"
+#include "Spi_Types.h"
 #include "../../config/spi_cfg.h"
-#include "spi_types.h"
 #include "spi.h"
 
-/*================================================*
- * LOCAL FUNCTIONS
- * ==============================================*/
-static inline void Spi_SetBitRate(Spi_ChannelType SpiNum ,uint32 BitRate);
-static inline void Spi_IntRoutine(Spi_ChannelType channel);
-static inline void Spi_writeTxFifo(Spi_ChannelType Channel);
-/*================================================*
+
+/*====================================
  * EXTERNS
- * ==============================================*/
-extern const Spi_ConfigType Spi_CfgArr[];
+ *=================================== */
+extern SPI_CFGType SPI_CfgArr[];
 
-/*================================================*
- * LOCAL VARIABLES
- * ==============================================*/
-static const uint32 Spi_BaseAddrArr[] = {SPI0_BASE_ADDR, SPI1_BASE_ADDR, SPI2_BASE_ADDR, SPI3_BASE_ADDR};
-static Spi_ChannelParamType Spi_ChannelParam[Spi_NUMBER_OF_HW_UINTS];
-/*================================================*
- * FUNCTIONS DEFINTIONS
- * ==============================================*/
+/*====================================
+ * LOCAL DECLERATIONS
+ *=================================== */
+static SPI_ChannelParamStructType ChannelParam[SPI_MaxNumOfChannels];
+static uint32 SPI_BaseAddrArr[SPI_MaxNumOfChannels]={BASE_ADDRESS_SSI0,
+                                                     BASE_ADDRESS_SSI1,
+                                                     BASE_ADDRESS_SSI2,
+                                                     BASE_ADDRESS_SSI3};
+/*====================================
+ * FUNCTION DEFINITIONS
+ *=================================== */
 
-/*=====================================================================================
- * NAME:        Spi_init
- * DESCRIBTION: Initial Configured Spi Channel with corresponding configuration Table
- * ===================================================================================*/
-void Spi_init(void)
+void SPI_init(void)
 {
-    uint8 i;
-    Spi_ChannelType Channel;
-    for (i = 0; i < Spi_NUM_OF_ACTIVATED_UNITS; ++i)
+    uint8 CfgArrIndex;
+    SPI_ChannelType ChannelId;
+    uint32 BaseAddress;
+    for(CfgArrIndex =0; CfgArrIndex< SPI_NUMER_OF_ACTIVATED_CHANNELS; CfgArrIndex++)
     {
-        Channel = Spi_CfgArr[i].Spi_Channel;
-        /*TODO: (1) Disable Spi to init configuration */
+        ChannelId = SPI_CfgArr[CfgArrIndex].SPI_ChannelId;
+        BaseAddress = SPI_BaseAddrArr[ChannelId];
+        /*TODO (1): Disable SSI by Ensuring that the SSE bit in the SSICR1
+         *       register is clear before making any configuration changes.*/
+        SSICR1(BaseAddress).B.SSE = STD_low;
 
+        /*TODO(2) Select whether the SSI is a master or slave:
+		For master operations, set the SSICR1 register to 0x0000.0000.
+		For slave mode (output enabled), set the SSICR1 register to 0x0000.0004.
+		For slave mode (output disabled), set the SSICR1 register to 0x0000.000C.*/
 
-        /*TODO: (2) Select whether the SSI is a master or slave  */
+        SPI_SetBaudRate(/* SPI_BaudRate_Hz from CFG*/);
 
-        /*TODO: configure loop back test */
+        /*TODO(4) Set Desired clock phase/polarity, if using Freescale SPI mode */
 
-        /*TODO: configure Tx Interrupt Mode  */
+        /*TODO(5) Set Desired Frame Formate */
 
+        /*TODO (6) Set Desired data size*/
 
-        /*TODO:  (3) Configure the SSI clock source by writing to the SSICC register. */
-
-
-        /* TODO: (4) Set Bit Rate with clock rate and clock prescaler */
-
-
-        /*TODO:  (5) Configure Clock phase */
-
-
-        /*TODO:  Configure Clock  polarity */
-
-
-        /*TODO:  Configure Protocol mode  */
-
-
-        /*TODO:  Configure Data Size */
-
-
-        /*TODO:  (7) Enable Spi to init configuration */
-
-
-        /*TODO:  change SPi Unit status to idle*/
-
+        /*TODO (7) Enable the SSI by setting the SSE bit in the SSICR1 register*/
     }
 }
-/*=================================================================================
- * NAME:        Spi_enInterrupt
- * DESCRIBTION: Enable all configured interrupts for given channel
- * =================================================================================*/
-void Spi_enInterrupt(Spi_ChannelType Channel)
+Std_ReturnType SPI_writeIB(SPI_ChannelType Channel, uint16* userTxMsg, uint8 TxMsgSize)
 {
-    /* TODO: Enable all configured interrupts for given channel */
-
 
 }
-/*=================================================================================
- * NAME:        Spi_diInterrupt
- * DESCRIBTION: Disable all interrupts in corresponding channel
- * =================================================================================*/
-void Spi_diInterrupt(Spi_ChannelType Channel)
+Std_ReturnType SPI_readIB(SPI_ChannelType Channel, uint16* userRxMsg, uint8*const RxMsgSize)
 {
-    /*TODO: disable all interrupt for this Channel*/
 
 }
-
-/*=================================================================================
- * NAME:        Spi_GetStatus
- * DESCRIBTION: get status of given channel (Idle/Busy)
- * =================================================================================*/
-Spi_StatusType Spi_GetStatus(Spi_ChannelType Channel)
+Std_ReturnType SPI_SyncTransmit(SPI_ChannelType Channel)
 {
-    return Spi_ChannelParam[Channel].Status;
-}
-
-/*=================================================================================
- * NAME:        Spi_WriteIB
- * DESCRIBTION: The Function shall save the pointed data to the internal buffer
- * =================================================================================*/
-Std_ReturnType Spi_WriteIB( Spi_ChannelType Channel, const uint16* DataBufferPtr,uint8 DataBufferSize)
-{
-    Std_ReturnType ret = E_OK;
-    /*TODO: save the given data to the internal buffer*/
-
-
-
-
-    return ret;
-}
-
-/* =================================================================================
- * NAME:          Spi_ReadIB
- * DESCRIBTION:   The function Spi_ReadIB provides the service
- * for reading synchronously one or more data from an IB(Rx_Buffer)
- * =================================================================================*/
-Std_ReturnType Spi_ReadIB( Spi_ChannelType Channel, uint16* DataBufferPtr, uint8* DataBufferSizePtr )
-{
-    uint8 i;
-    Std_ReturnType ret = E_OK;
-    /* Check if there is any Rx Data*/
-    if(Spi_ChannelParam[Channel].RxBufferIndex != 0)
-    {
-        /*TODO: Copy Data From RXBuffer to DataBufferPtr Location */
-
-
-        /*TODO: Write into DataBufferSizePtr location the last RxBufferIndex*/
-
-
-        /*TODO: Reset RxBufferIndex */
-
-    }
-    else
-    {
-        /*TODO: Return Not Ok if There is no Received Data */
-
-    }
-    return ret;
-}
-
-/*=================================================================================
- * NAME:        Spi_AsyncTransmit
- * DESCRIBTION: start transmission of Tx buffer asynchronously (Interrupt based)
- * =================================================================================*/
-Std_ReturnType Spi_AsyncTransmit(Spi_ChannelType Channel)
-{
-    Std_ReturnType ret = E_OK;
-    if(Spi_ChannelParam[Channel].Status == SPI_IDLE)
-    {
-
-
-    }
-    else
-    {
-        ret = E_NOT_OK;
-    }
-    return ret;
-}
-/*=================================================================================
- * NAME:        Spi_SyncTransmit
- * DESCRIBTION: start transmission of Tx buffer synchronously (Polling based)
- * =================================================================================*/
-Std_ReturnType Spi_SyncTransmit(Spi_ChannelType Channel)
-{
-    Std_ReturnType ret = E_OK;
-
-
-
-
-    return ret;
-}
-/*=================================================================================
- * NAME:        Spi_writeTxFifo
- * DESCRIBTION:
- * =================================================================================*/
-static inline void Spi_writeTxFifo(Spi_ChannelType Channel)
-{
-
-
-
 
 }
-/*=================================================================================
- * NAME:        Spi_SetBitRate
- * DESCRIBTION: configure bit rate
- * =================================================================================*/
-static inline void Spi_SetBitRate(Spi_ChannelType Channel ,uint32 u32SSInClk)
+SPI_StatusType SPI_getStatus(SPI_ChannelType Channel)
 {
-    /*TODO:  Calculate CPSDVSR and SCR in SSICPSR and SSICR0 Register  */
-
-
-
-
+    return ChannelParam[Channel].Status;
 }
-/*=================================================================================
- * NAME:        Spi_IntRoutine
- * DESCRIBTION: ISR for all SPI Modules Interrupts
- * =================================================================================*/
-static inline void Spi_IntRoutine(Spi_ChannelType Channel)
+
+inline static SPI_SetBaudRate(/* SPI_BaudRate_Hz from CFG*/)
+        {
+    /* TODO(3): Configure the SSI clock source by writing to the SSICC register.
+				Configure the clock prescale divisor by writing the SSICPSR register.
+				Write the SSICR0 register with the following configuration:
+				Serial clock rate (SCR) */
+
+        }
+
+static inline void Spi_IntRoutine(SPI_ChannelType Channel)
 {
-    if(SSIMIS(Spi_BaseAddrArr[Channel]).B.TXMIS == STD_high)
+    uint32 BaseAddress = SPI_BaseAddrArr[Channel];
+
+    if(SSIMIS(BaseAddress).B.TXMIS == STD_high)
     {
 
 
     }
 
-    if(SSIMIS(Spi_BaseAddrArr[Channel]).B.RXMIS == STD_high)
+    if(SSIMIS(BaseAddress).B.RXMIS == STD_high)
     {
 
 
     }
 
-    if(SSIMIS(Spi_BaseAddrArr[Channel]).B.RTMIS == STD_high)
+    if(SSIMIS(BaseAddress).B.RTMIS == STD_high)
     {
 
 
     }
 
-    if(SSIMIS(Spi_BaseAddrArr[Channel]).B.RORMIS == STD_high)
+    if(SSIMIS(BaseAddress).B.RORMIS == STD_high)
     {
 
 
@@ -245,34 +118,19 @@ static inline void Spi_IntRoutine(Spi_ChannelType Channel)
 
 }
 
-/*=================================================================================
- * NAME:        SPI0_IntHandler
- * DESCRIBTION: SPI_0 ISR
- * =================================================================================*/
 void SPI0_IntHandler(void)
 {
-    Spi_IntRoutine(Spi_Channel0);
+    Spi_IntRoutine(SPI_Ch_0);
 }
-/*=================================================================================
- * NAME:        SPI1_IntHandler
- * DESCRIBTION: SPI_1 ISR
- * =================================================================================*/
 void SPI1_IntHandler(void)
 {
-    Spi_IntRoutine(Spi_Channel1);
+    Spi_IntRoutine(SPI_Ch_1);
 }
-/*=================================================================================
- * NAME:        SPI2_IntHandler
- * DESCRIBTION: SPI_2 ISR
- * =================================================================================*/
 void SPI2_IntHandler(void)
 {
-
+    Spi_IntRoutine(SPI_Ch_2);
 }
-/*=================================================================================
- * NAME:        SPI3_IntHandler
- * DESCRIBTION: SPI_3 ISR
- * =================================================================================*/
 void SPI3_IntHandler(void)
 {
+    Spi_IntRoutine(SPI_Ch_3);
 }

@@ -383,6 +383,21 @@ typedef union
     }B;
 }SPI_SSICR0_TAG;
 
+typedef union
+{
+    uint32 R;
+    struct
+    {
+        uint32 LBM        :1        ;
+        uint32 SSE        :1        ;
+        uint32 MS         :1        ;
+        uint32            :1        ;
+        uint32 EOT        :1        ;
+        uint32            :27       ;
+
+    }B;
+}SPI_SSICR1_TAG;
+
 
 typedef union
 {
@@ -465,10 +480,8 @@ typedef union
     }B;
 }SPI_SSIDMACTL_TAG;
 
-/* TODO: define SSICR1_Type */
-
 #define SSICR0_OFFSET                       0x000
-/* TODO: define SSICR1_OFFSET */
+#define SSICR1_OFFSET                       0x004
 #define SSIDR_OFFSET                        0x008
 #define SSISR_OFFSET                        0x00C
 #define SSICPSR_OFFSET                      0x010
@@ -485,7 +498,6 @@ typedef union
 #define SPI3_BASE_ADDR                      0x4000B000
 
 #define SSICR0(SPI_BASE_ADDR)               GET_REG(SPI_BASE_ADDR, SPI_SSICR0_TAG, SSICR0_OFFSET)
-/* TODO: define SSICR1 Register address */
 #define SSICR1(SPI_BASE_ADDR)               GET_REG(SPI_BASE_ADDR, SPI_SSICR1_TAG, SSICR1_OFFSET)
 #define SSIDR(SPI_BASE_ADDR)                GET_REG(SPI_BASE_ADDR, uint32, SSIDR_OFFSET)
 #define SSISR(SPI_BASE_ADDR)                GET_REG(SPI_BASE_ADDR, SPI_SSISR_TAG, SSISR_OFFSET)
