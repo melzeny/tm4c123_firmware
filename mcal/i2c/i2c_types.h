@@ -1,8 +1,8 @@
 /*
  * i2c_types.h
  *
- *  Created on: Aug 19, 2019
- *      Author: Muhammad.Elzeiny
+ *  Created on:
+ *      Author: Sprins wave4
  */
 
 #ifndef E15_ARM_REPO_MCAL_I2C_I2C_TYPES_H_
@@ -12,81 +12,67 @@
 
 typedef enum
 {
-    I2c_uiInit,
-    I2c_idle,
-    I2c_busy
-}I2c_StatusType;
+    I2C_Channel_0,
+    I2C_Channel_1,
+    I2C_Channel_2,
+    I2C_Channel_3
+}I2C_ChannelType;
+
+typedef uint8   I2C_StatusType;
+#define I2C_Status_Idle                 (uint8)0
+#define I2C_Status_BUSY                 (uint8)1
+
+
+typedef boolean  I2C_StopFrameEnType;
 
 typedef enum
 {
-    I2c_Request_Write,
-    I2c_Request_Read
-}I2c_RequestType;
+    I2C_Operation_Write,
+    I2C_Operation_Read
+}I2C_OperationType;
 
+/**********************************
+ * PRIVATE TYPES
+ ******************************** */
+#ifdef I2C_PRIVATE_CODE
+#include "../../config/i2c_cfg.h"
+typedef enum
+{
+    I2C_Mode_Master,
+    I2C_Mode_Slave,
+    I2C_Mode_Master_Slave,
+
+}I2C_ModeType;
 
 typedef enum
 {
-    I2c_Channel0,
-    I2c_Channel1,
-    I2c_Channel2,
-    I2c_Channel3,
-}I2c_ChannelType;
-
-#ifdef I2C_PRIVATE_CONFIG
-typedef enum
-{
-    GlitchFilter_PW_Bypass,
-    GlitchFilter_PW_01_Clock,
-    GlitchFilter_PW_02_Clocks,
-    GlitchFilter_PW_03_Clocks,
-    GlitchFilter_PW_04_Clocks,
-    GlitchFilter_PW_08_Clocks,
-    GlitchFilter_PW_16_Clocks,
-    GlitchFilter_PW_31_Clocks,
-
-}I2c_GlitchFilterPwType;
+    I2C_SpeedMode_Standard,
+    I2C_SpeedMode_Fast,
+    I2C_SpeedMode_VeryFast,
+    I2C_SpeedMode_HighSpeed
+}I2C_SpeedModeType;
 
 typedef struct
 {
-    I2c_ChannelType                 Channel;
-    uint32                          ClockRate;
-    STD_EnType                      MasterHighSpeed;
-    STD_EnType                      ClockHighSpeed;
-    STD_EnType                      AutoDataAck;
-    STD_EnType                      GlitchFilter;
-    I2c_GlitchFilterPwType          GlitchFilter_PulseWidth;
-    STD_EnType                      LoopbackTest;
-    STD_EnType                      FIfo;
-    STD_EnType                      Interrupt_Master;
-    STD_EnType                      Interrupt_ClkTimeout;
-}I2c_MasterConfigType;
+    I2C_ChannelType     I2C_ChannelId    ;
+    uint32              I2C_BaudRate     ;
+    I2C_ModeType        I2C_Mode         ;
+    uint8               I2C_Sla          ;
+    uint8               I2C_Alt_Sla      ;
+    I2C_SpeedModeType   I2C_SpeedMode    ;
+    boolean             I2C_TimeOutEn    ;
+    boolean             I2C_LoopbackEn   ;
+}I2C_CfgType;
 
 typedef struct
 {
-    I2c_ChannelType                 I2cChannel;
-    uint32                          SlaveAddr;
-    STD_EnType                      ALtSlaveAdrr_EN;
-    uint32                          ALtSlaveAdrr;
-    STD_EnType                      Slave_HighSpeed;
-    STD_EnType                      Interrupt_STO;
-    I2c_GlitchFilterPwType          Interrupt_STA;
-    STD_EnType                      Interrupt_Rxc;
-}I2c_SlaveConfigType;
+  uint8 TxBuffer[MAX_TX_BUFFER_SIZE];
+  uint8 RxBuffer[MAX_RX_BUFFER_SIZE];
+  uint8 TxBufferIndex;
+  uint8 RxBufferIndex;
+  uint8 TxMsgSize;
+  uint8 RxMsgSize;
 
-typedef struct
-{
-    uint32 TxMsgSize;
-    uint16 TxBuffer[I2c_TX_BUFFER_SIZE];
-    uint32 TxBufferIndex;
-    uint16 RxBuffer[I2c_RX_BUFFER_SIZE];
-    uint32 RxBufferIndex;
-    uint32 Slave_TxMsgSize;
-    uint16 Slave_TxBuffer[I2c_TX_BUFFER_SIZE];
-    uint32 Slave_TxBufferIndex;
-    uint16 Slave_RxBuffer[I2c_RX_BUFFER_SIZE];
-    uint32 Slave_RxBufferIndex;
-    I2c_StatusType Status;
-}I2c_ChannelParamType;
-
-#endif /* I2C_PRIVATE_CONFIG */
+}I2C_ChannelParamType;
+#endif /* Private Code*/
 #endif /* E15_ARM_REPO_MCAL_I2C_I2C_TYPES_H_ */

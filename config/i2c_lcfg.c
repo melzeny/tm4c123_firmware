@@ -1,48 +1,19 @@
-/*
- * i2c_lcfg.c
- *
- *  Created on: Aug 20, 2019
- *      Author: Muhammad.Elzeiny
- */
-/*================================================*
- * DEFINES
- * ==============================================*/
-#define I2C_PRIVATE_CONFIG
-
-/*================================================*
- * INCLUDES
- * ==============================================*/
-#include "../utils/STD_types.h"
-#include "i2c_cfg.h"
+#define I2C_PRIVATE_CODE
 #include "../mcal/i2c/i2c_types.h"
+#include "i2c_cfg.h"
 
 
 
+I2C_CfgType I2C_CfgArr[I2C_NUM_OF_ACTIVATED_CHANNEL] =
+{
+ /**********************************************************************************************************************************************************/
+ /***ChannelId***********BaudRate***********Mode******************Sla**************Alt_Sla*********SpeedMode******************TimeOutEn********LoopbackEn***/
+ /**********************************************************************************************************************************************************/
+ {   I2C_Channel_0,      5000,              I2C_Mode_Master,      0x24,             0x26,           I2C_SpeedMode_Standard,   false,            false},
 
+ {   I2C_Channel_1,      5000,              I2C_Mode_Master,      0x24,             0x26,           I2C_SpeedMode_Standard,   false,            false},
 
-/*================================================*
- * CONFIGURATIONS
- * ==============================================*/
-const uint8 I2C_NumOfActivatedChannel = 4;
+ {   I2C_Channel_2,      5000,              I2C_Mode_Master,      0x24,             0x26,           I2C_SpeedMode_Standard,   false,            false},
 
-
-const I2c_MasterConfigType I2C_Master_CfgArr[]    = {
-/*============================================================================================================================================================================================================================================================================*
- *  I2C_ModNUm             CLockRate             Master_HighSpeed             CLock_HighSpeed           AutoDataAck       GlitchFilter                 GlitchFilter_PulseWidth             LoopBack       FIFO_EN             Interrupt_Master           Interrupt_ClkTimeout *
- *============================================================================================================================================================================================================================================================================*/
- {  I2c_Channel0,                 5000000,              ENABLE,                      ENABLE,                   ENABLE,             ENABLE,                    GlitchFilter_PW_Bypass,             ENABLE,        DISABLE,            DISABLE,                    DISABLE,            },
- {  I2c_Channel1,                 5000000,              ENABLE,                      ENABLE,                   ENABLE,             ENABLE,                    GlitchFilter_PW_Bypass,             ENABLE,        DISABLE,            DISABLE,                    DISABLE,            },
- {  I2c_Channel2,                 5000000,              ENABLE,                      ENABLE,                   ENABLE,             ENABLE,                    GlitchFilter_PW_Bypass,             ENABLE,        DISABLE,            DISABLE,                    DISABLE,            },
- {  I2c_Channel3,                 5000000,              ENABLE,                      ENABLE,                   ENABLE,             ENABLE,                    GlitchFilter_PW_Bypass,             ENABLE,        DISABLE,            DISABLE,                    DISABLE,            }
-};
-
-
-const I2c_SlaveConfigType I2C_Slave_CfgArr[]    = {
-/*=========================================================================================================================================================================================================*
- *  I2C_ModNUm             SlaveAddr             ALtSlaveAdrr_EN             ALtSlaveAdrr             HighSpeed             Interrupt_STO             Interrupt_STA                        Interrupt_Rxc   *
- *=========================================================================================================================================================================================================*/
- {  I2c_Channel0,                 0x12,            DISABLE,                   0x12,               DISABLE,              DISABLE,                 ENABLE ,                             DISABLE,        },
- {  I2c_Channel1,                 0x20,            DISABLE,                   0x20,               DISABLE,              DISABLE,                 DISABLE,                             DISABLE,        },
- {  I2c_Channel2,                 0x78,            DISABLE,                   0x78,               DISABLE,              DISABLE,                 DISABLE,                             DISABLE,        },
- {  I2c_Channel3,                 0x45,            DISABLE,                   0x45,               DISABLE,              DISABLE,                 DISABLE,                             DISABLE,        }
+ {   I2C_Channel_3,      5000,              I2C_Mode_Master,      0x24,             0x26,           I2C_SpeedMode_Standard,   false,            false},
 };
