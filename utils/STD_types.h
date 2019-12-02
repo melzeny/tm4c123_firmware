@@ -24,19 +24,19 @@ typedef enum
 {
     STD_low=0,
     STD_high=!STD_low
-}STD_levelType;
+}Std_levelType;
 
 typedef enum
 {
     STD_off=0,
     STD_on=!STD_off
-}STD_BoolType;
+}Std_BoolType;
 
 typedef enum
 {
     STD_Suspended=0,
     STD_Active=!STD_Suspended
-}STD_StatusType;
+}Std_StatusType;
 
 typedef enum
 {
@@ -48,7 +48,7 @@ typedef enum
 {
     DISABLE=0,
     ENABLE=1
-}STD_EnType;
+}Std_EnType;
 
 typedef enum
 {

@@ -146,12 +146,12 @@ typedef struct
     uint32 GPIODMACTL  ;
 }PORT_RegType;
 
-#define PORTA_REG     (*((volatile PORT_RegType*)0x400043FC))
-#define PORTB_REG     (*((volatile PORT_RegType*)0x400053FC))
-#define PORTC_REG     (*((volatile PORT_RegType*)0x400063FC))
-/*TODO: Define PORTD Base Register*/
-#define PORTE_REG     (*((volatile PORT_RegType*)0x400243FC))
-#define PORTF_REG     (*((volatile PORT_RegType*)0x400253FC))
+#define PORTA_BaseAddr     ((volatile PORT_RegType*)0x400043FC)
+#define PORTB_BaseAddr     ((volatile PORT_RegType*)0x400053FC)
+#define PORTC_BaseAddr     ((volatile PORT_RegType*)0x400063FC)
+#define PORTD_BaseAddr     ((volatile PORT_RegType*)0x400073FC)
+#define PORTE_BaseAddr     ((volatile PORT_RegType*)0x400243FC)
+#define PORTF_BaseAddr     ((volatile PORT_RegType*)0x400253FC)
 
 /*===========================================================*
  * RCC REGISTERS                                             *

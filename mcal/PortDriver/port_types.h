@@ -50,7 +50,7 @@
 #define PORT_MODE_PIN_D0_I2C3SCL            3
 #define PORT_MODE_PIN_D1_I2C3SDA            3
 
-#include "../../utils/STD_Types.h"
+#include "../../utils/Std_Types.h"
 typedef enum
 {
     Port_Channel_A0,

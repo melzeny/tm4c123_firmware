@@ -8,31 +8,13 @@
 #ifndef E15_ARM_REPO_CONFIG_SYSCTR_CFG_H_
 #define E15_ARM_REPO_CONFIG_SYSCTR_CFG_H_
 
-/*TODO : enable GPIO PORTS */
-#define SYSCTR_RCC_GPIO_PORTA                     DISABLE
-#define SYSCTR_RCC_GPIO_PORTB                     DISABLE
-#define SYSCTR_RCC_GPIO_PORTC                     DISABLE
-#define SYSCTR_RCC_GPIO_PORTD                     DISABLE
-#define SYSCTR_RCC_GPIO_PORTE                     DISABLE
-#define SYSCTR_RCC_GPIO_PORTF                     DISABLE
 
-#define SYSCTR_RCC_UART0                          DISABLE
-#define SYSCTR_RCC_UART1                          DISABLE
-#define SYSCTR_RCC_UART2                          DISABLE
-#define SYSCTR_RCC_UART3                          DISABLE
-#define SYSCTR_RCC_UART4                          DISABLE
-#define SYSCTR_RCC_UART5                          DISABLE
-#define SYSCTR_RCC_UART6                          DISABLE
-#define SYSCTR_RCC_UART7                          DISABLE
+/*TODO implement suitable container to store the followings
+ *
+ * which peripheral clock gate Enabled
+ * Desired System clock Source
+ * Desired System CLock Frequency
+ * */
 
-#define SYSCTR_RCC_SSI0                           DISABLE
-#define SYSCTR_RCC_SSI1                           DISABLE
-#define SYSCTR_RCC_SSI2                           DISABLE
-#define SYSCTR_RCC_SSI3                           DISABLE
-                          
-#define SYSCTR_RCC_I2C0                           DISABLE
-#define SYSCTR_RCC_I2C1                           DISABLE
-#define SYSCTR_RCC_I2C2                           DISABLE
-#define SYSCTR_RCC_I2C3                           DISABLE
 
 #endif /* E15_ARM_REPO_CONFIG_SYSCTR_CFG_H_ */

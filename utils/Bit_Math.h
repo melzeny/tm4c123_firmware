@@ -8,7 +8,7 @@
 #ifndef E15_LAB_SRC_UTILS_BIT_MATH_H_
 #define E15_LAB_SRC_UTILS_BIT_MATH_H_
 
-#include "STD_Types.h"
+#include "Std_Types.h"
 
 #define SET_BIT(u32Var,BitNo)		                             u32Var |= ((uint32)1<<BitNo)
 #define CLR_BIT(u32Var,BitNo)		                             u32Var &= ~((uint32)1<<BitNo)

@@ -11,18 +11,18 @@
 
 #include "dio.h"
 
-STD_levelType Dio_ReadChannel(Dio_ChannelType ChannelId)
+Std_levelType Dio_ReadChannel(Dio_ChannelType ChannelId)
 {
-    STD_levelType ret;
+    Std_levelType ret;
     Dio_PortType PortId = ChannelId / 8;
     Dio_ChannelType ChannelPos = ChannelId % 8;
 
-    /*TODO: Return the Input Channel Value */
+    /*TODO: Return the level value of given Channel */
 
     return ret;
 
 }
-void Dio_WriteChannel(Dio_ChannelType ChannelId, STD_levelType Level)
+void Dio_WriteChannel(Dio_ChannelType ChannelId, Std_levelType Level)
 {
     Dio_PortType PortId = ChannelId / 8;
     Dio_ChannelType ChannelPos = ChannelId % 8;
